@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>M0TIV3 — Just Play.</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #d9d9d9;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+header {
+  background: white;
+  border-bottom: 5px solid #111;
+  padding: 20px;
+}
+
+.header {
+  max-width: 1250px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(60px, 11vw, 115px);
+  line-height: .8;
+  letter-spacing: -7px;
+  transform: rotate(-2deg);
+  text-shadow: 5px 5px #aaa;
+}
+
+.search {
+  display: flex;
+  width: 350px;
+}
+
+.search input {
+  width: 100%;
+  padding: 14px;
+  border: 4px solid #111;
+  font-weight: bold;
+  outline: none;
+}
+
+.search button {
+  background: #111;
+  color: white;
+  border: 4px solid #111;
+  padding: 0 20px;
+  font-weight: bold;
+}
+
+nav {
+  background: #111;
+  padding: 10px;
+}
+
+.nav {
+  max-width: 1250px;
+  margin: auto;
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+}
+
+.nav button {
+  background: white;
+  border: 0;
+  padding: 11px 17px;
+  font-weight: 900;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav button:hover,
+.nav button.active {
+  background: #111;
+  color: white;
+  outline: 2px solid white;
+}
+
+main {
+  max-width: 1250px;
+  margin: auto;
+  padding: 30px 18px 80px;
+}
+
+.hero {
+  background: white;
+  border: 5px solid #111;
+  box-shadow: 11px 11px #111;
+  padding: 35px;
+  margin-bottom: 55px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(70px, 13vw, 145px);
+  letter-spacing: -8px;
+  line-height: .8;
+  position: relative;
+  z-index: 2;
+}
+
+.hero p {
+  font-size: 19px;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+}
+
+.random {
+  background: #111;
+  color: white;
+  border: 4px solid white;
+  outline: 4px solid #111;
+  padding: 14px 25px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 22px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  border-bottom: 6px solid #111;
+  margin-bottom: 25px;
+}
+
+.section-title h2 {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 55px;
+  margin: 0;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.game {
+  background: white;
+  border: 4px solid #111;
+  box-shadow: 6px 6px #111;
+  overflow: hidden;
+  transition: .15s;
+}
+
+.game:hover {
+  transform: translate(-3px,-4px) rotate(-1deg);
+  box-shadow: 10px 10px #111;
+}
+
+.thumb {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+  border-bottom: 4px solid #111;
+  background: #888;
+}
+
+.game:nth-child(3n) .thumb {
+  background: #aaa;
+}
+
+.game:nth-child(4n) .thumb {
+  background: #555;
+}
+
+.info {
+  padding: 13px;
+}
+
+.info h3 {
+  margin: 0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 23px;
+}
+
+.info p {
+  margin: 7px 0 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+}
+
+.play {
+  width: 100%;
+  padding: 12px;
+  background: #111;
+  color: white;
+  border: 0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.play:hover {
+  background: white;
+  color: #111;
+  outline: 3px solid #111;
+}
+
+#player {
+  display: none;
+  background: white;
+  border: 5px solid #111;
+  box-shadow: 11px 11px #111;
+  padding: 15px;
+  margin-top: 60px;
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 5px solid #111;
+  margin-bottom: 15px;
+}
+
+.player-header h2 {
+  margin: 5px 0 15px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 42px;
+}
+
+.close {
+  background: #111;
+  color: white;
+  border: 0;
+  padding: 12px 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.frame {
+  height: 650px;
+  background: #111;
+}
+
+.frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.strip {
+  background: #111;
+  color: white;
+  padding: 18px;
+  margin: 60px -18px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 22px;
+  transform: rotate(-1deg);
+}
+
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 45px;
+}
+
+footer h2 {
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 70px;
+  margin: 0;
+}
+
+@media(max-width:950px) {
+
+  .header {
+    flex-direction: column;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .games {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:550px) {
+
+  .games {
+    grid-template-columns: 1fr;
+  }
+
+  .frame {
+    height: 500px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+M0TIV3 — JUST PLAY
+</div>
+
+<header>
+
+<div class="header">
+
+<div class="logo">M0TIV3</div>
+
+<div class="search">
+
+<input
+id="search"
+placeholder="SEARCH GAMES..."
+oninput="searchGames()">
+
+<button onclick="searchGames()">GO</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<nav>
+
+<div class="nav">
+
+<button class="active" onclick="filterGames('all',this)">ALL</button>
+<button onclick="filterGames('2player',this)">2 PLAYER</button>
+<button onclick="filterGames('fighting',this)">FIGHTING</button>
+<button onclick="filterGames('sports',this)">SPORTS</button>
+<button onclick="filterGames('racing',this)">RACING</button>
+<button onclick="filterGames('random',this)">RANDOM</button>
+
+</div>
+
+</nav>
+
+
+<main>
+
+<section class="hero">
+
+<h1>M0TIV3</h1>
+
+<p>
+26 GAMES. ONE PLACE. JUST PLAY.
+</p>
+
+<button class="random" onclick="randomGame()">
+🎲 RANDOM GAME
+</button>
+
+</section>
+
+
+<div class="section-title">
+<h2>PLAY NOW</h2>
+</div>
+
+
+<section class="games" id="games">
+
+
+<!-- 1 -->
+
+<div class="game" data-name="gladihoppers" data-category="fighting">
+
+<div class="thumb">⚔️</div>
+
+<div class="info">
+<h3>GLADIHOPPERS</h3>
+<p>2D gladiator chaos.</p>
+
+<button class="play"
+onclick="playGame('GLADIHOPPERS','https://www.miniplay.com/embed/gladihoppers')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 2 -->
+
+<div class="game" data-name="basket random" data-category="sports 2player random">
+
+<div class="thumb">🏀</div>
+
+<div class="info">
+<h3>BASKET RANDOM</h3>
+<p>2-player basketball chaos.</p>
+
+<button class="play"
+onclick="playGame('BASKET RANDOM','https://www.randombasketball.com/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 3 -->
+
+<div class="game" data-name="stickman clash" data-category="fighting 2player">
+
+<div class="thumb">🥷</div>
+
+<div class="info">
+<h3>STICKMAN CLASH</h3>
+<p>Stickman battles.</p>
+
+<button class="play"
+onclick="playGame('STICKMAN CLASH','https://kiz10.com/embed/stickman-clash/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 4 -->
+
+<div class="game" data-name="stickman fighting 2 player" data-category="fighting 2player">
+
+<div class="thumb">🥊</div>
+
+<div class="info">
+<h3>STICKMAN FIGHTING</h3>
+<p>2-player ragdoll fighting.</p>
+
+<button class="play"
+onclick="playGame('STICKMAN FIGHTING','https://kiz10.com/embed/stickman-fighting-2-player/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 5 -->
+
+<div class="game" data-name="stick duel medieval wars" data-category="fighting 2player">
+
+<div class="thumb">🗡️</div>
+
+<div class="info">
+<h3>STICK DUEL</h3>
+<p>Medieval stick battles.</p>
+
+<button class="play"
+onclick="playGame('STICK DUEL','https://kiz10.com/embed/stick-duel---medieval-wars/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 6 -->
+
+<div class="game" data-name="drunken duel 2" data-category="fighting 2player">
+
+<div class="thumb">🔫</div>
+
+<div class="info">
+<h3>DRUNKEN DUEL 2</h3>
+<p>Ragdoll dueling.</p>
+
+<button class="play"
+onclick="playGame('DRUNKEN DUEL 2','https://kiz10.com/embed/drunken-duel-2/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 7 -->
+
+<div class="game" data-name="punchers" data-category="fighting 2player">
+
+<div class="thumb">🥊</div>
+
+<div class="info">
+<h3>PUNCHERS</h3>
+<p>Ragdoll boxing.</p>
+
+<button class="play"
+onclick="playGame('PUNCHERS','https://kiz10.com/embed/punchers/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 8 -->
+
+<div class="game" data-name="mini duels battle" data-category="fighting 2player random">
+
+<div class="thumb">💥</div>
+
+<div class="info">
+<h3>MINI DUELS</h3>
+<p>16 mini-games.</p>
+
+<button class="play"
+onclick="playGame('MINI DUELS','https://kiz10.com/embed/mini-duels-battle/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 9 -->
+
+<div class="game" data-name="building blaster 2" data-category="fighting 2player">
+
+<div class="thumb">💣</div>
+
+<div class="info">
+<h3>BUILDING BLASTER</h3>
+<p>Retro 2-player battle.</p>
+
+<button class="play"
+onclick="playGame('BUILDING BLASTER','https://kiz10.com/embed/building-blaster-2--players-pack/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 10 -->
+
+<div class="game" data-name="moto trial racing" data-category="racing 2player">
+
+<div class="thumb">🏍️</div>
+
+<div class="info">
+<h3>MOTO TRIAL</h3>
+<p>Bike & ATV racing.</p>
+
+<button class="play"
+onclick="playGame('MOTO TRIAL','https://kiz10.com/embed/moto-trial-racing/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 11 -->
+
+<div class="game" data-name="moto space racing" data-category="racing 2player">
+
+<div class="thumb">🚀</div>
+
+<div class="info">
+<h3>MOTO SPACE</h3>
+<p>2-player space racing.</p>
+
+<button class="play"
+onclick="playGame('MOTO SPACE','https://kiz10.com/embed/moto-space-racing--2-player/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 12 -->
+
+<div class="game" data-name="fall cars hexagon" data-category="racing 2player">
+
+<div class="thumb">🚙</div>
+
+<div class="info">
+<h3>FALL CARS</h3>
+<p>Don't fall off the hexagon.</p>
+
+<button class="play"
+onclick="playGame('FALL CARS','https://kiz10.com/embed/fall-cars---hexagon/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 13 -->
+
+<div class="game" data-name="supercar battle" data-category="racing 2player">
+
+<div class="thumb">🏎️</div>
+
+<div class="info">
+<h3>SUPERCAR BATTLE</h3>
+<p>Weapons + racing.</p>
+
+<button class="play"
+onclick="playGame('SUPERCAR BATTLE','https://kiz10.com/embed/supercar-battle-2-player-racing-game/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 14 -->
+
+<div class="game" data-name="3d city racing" data-category="racing 2player">
+
+<div class="thumb">🏙️</div>
+
+<div class="info">
+<h3>3D CITY RACING</h3>
+<p>2-player street racing.</p>
+
+<button class="play"
+onclick="playGame('3D CITY RACING','https://kiz10.com/embed/3d-city-2-player-racing/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 15 -->
+
+<div class="game" data-name="hexa cars" data-category="racing 2player">
+
+<div class="thumb">🚗</div>
+
+<div class="info">
+<h3>HEXA CARS</h3>
+<p>Don't fall into the void.</p>
+
+<button class="play"
+onclick="playGame('HEXA CARS','https://kiz10.com/embed/hexa-cars/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 16 -->
+
+<div class="game" data-name="drive dead 3d" data-category="racing 2player">
+
+<div class="thumb">💀</div>
+
+<div class="info">
+<h3>DRIVE DEAD 3D</h3>
+<p>Crash your opponent.</p>
+
+<button class="play"
+onclick="playGame('DRIVE DEAD 3D','https://kiz10.com/embed/drive-dead-3d/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 17 -->
+
+<div class="game" data-name="desert city stunt" data-category="racing 2player">
+
+<div class="thumb">🏜️</div>
+
+<div class="info">
+<h3>DESERT CITY</h3>
+<p>Cars + stunts.</p>
+
+<button class="play"
+onclick="playGame('DESERT CITY','https://kiz10.com/embed/desert-city-stunt/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 18 -->
+
+<div class="game" data-name="basketball fury" data-category="sports 2player">
+
+<div class="thumb">🏀</div>
+
+<div class="info">
+<h3>BASKETBALL FURY</h3>
+<p>Arcade basketball.</p>
+
+<button class="play"
+onclick="playGame('BASKETBALL FURY','https://kiz10.com/embed/basketball-fury/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 19 -->
+
+<div class="game" data-name="dunkers" data-category="sports 2player">
+
+<div class="thumb">🏀</div>
+
+<div class="info">
+<h3>DUNKERS</h3>
+<p>Ragdoll basketball.</p>
+
+<button class="play"
+onclick="playGame('DUNKERS','https://kiz10.com/embed/dunkers/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 20 -->
+
+<div class="game" data-name="pyramid run" data-category="2player random">
+
+<div class="thumb">🏜️</div>
+
+<div class="info">
+<h3>PYRAMID RUN</h3>
+<p>2-player adventure.</p>
+
+<button class="play"
+onclick="playGame('PYRAMID RUN','https://kiz10.com/embed/pyramid-run/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 21 -->
+
+<div class="game" data-name="pyramid maze" data-category="2player random">
+
+<div class="thumb">🧩</div>
+
+<div class="info">
+<h3>PYRAMID MAZE</h3>
+<p>Co-op puzzle adventure.</p>
+
+<button class="play"
+onclick="playGame('PYRAMID MAZE','https://kiz10.com/embed/pyramid-maze/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 22 -->
+
+<div class="game" data-name="alien catcher" data-category="2player random">
+
+<div class="thumb">👽</div>
+
+<div class="info">
+<h3>ALIEN CATCHER</h3>
+<p>2-player alien missions.</p>
+
+<button class="play"
+onclick="playGame('ALIEN CATCHER','https://kiz10.com/embed/alien-catcher/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 23 -->
+
+<div class="game" data-name="minerics" data-category="2player puzzle">
+
+<div class="thumb">⛏️</div>
+
+<div class="info">
+<h3>MINERICS</h3>
+<p>2-player mining puzzle.</p>
+
+<button class="play"
+onclick="playGame('MINERICS','https://kiz10.com/embed/minerics/')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 24 -->
+
+<div class="game" data-name="stacky dash" data-category="random">
+
+<div class="thumb">🧱</div>
+
+<div class="info">
+<h3>STACKY DASH</h3>
+<p>Stickman maze runner.</p>
+
+<button class="play"
+onclick="playGame('STACKY DASH','https://www.play-games.com/iframe/40564.html')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 25 -->
+
+<div class="game" data-name="jungle rush" data-category="racing random">
+
+<div class="thumb">🦒</div>
+
+<div class="info">
+<h3>JUNGLE RUSH</h3>
+<p>Run through the jungle.</p>
+
+<button class="play"
+onclick="playGame('JUNGLE RUSH','https://www.play-games.com/iframe/34140.html')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+<!-- 26 -->
+
+<div class="game" data-name="animal transform race" data-category="racing 2player">
+
+<div class="thumb">🐧</div>
+
+<div class="info">
+<h3>ANIMAL RACE</h3>
+<p>Transform and race.</p>
+
+<button class="play"
+onclick="playGame('ANIMAL RACE','https://www.play-games.com/iframe/38039.html')">
+PLAY →
+</button>
+
+</div>
+</div>
+
+
+</section>
+
+
+<section id="player">
+
+<div class="player-header">
+
+<h2 id="gameTitle">GAME</h2>
+
+<button class="close" onclick="closeGame()">
+CLOSE ✕
+</button>
+
+</div>
+
+<div class="frame">
+
+<iframe
+id="gameFrame"
+allowfullscreen
+loading="lazy">
+</iframe>
+
+</div>
+
+</section>
+
+
+<div class="strip">
+
+<span>M0TIV3</span>
+<span>JUST PLAY</span>
+<span>2 PLAYER</span>
+<span>RANDOM</span>
+<span>2000s WEB</span>
+
+</div>
+
+</main>
+
+
+<footer>
+
+<h2>M0TIV3</h2>
+
+<p>JUST PLAY.</p>
+
+</footer>
+
+
+<script>
+
+function playGame(title,url) {
+
+document.getElementById("player").style.display = "block";
+
+document.getElementById("gameTitle").innerText = title;
+
+document.getElementById("gameFrame").src = url;
+
+document.getElementById("player").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function closeGame() {
+
+document.getElementById("player").style.display = "none";
+
+document.getElementById("gameFrame").src = "";
+
+}
+
+function searchGames() {
+
+let query =
+document.getElementById("search").value.toLowerCase();
+
+document.querySelectorAll(".game").forEach(game => {
+
+let name =
+game.dataset.name.toLowerCase();
+
+game.style.display =
+name.includes(query) ? "" : "none";
+
+});
+
+}
+
+function filterGames(category,button) {
+
+document.querySelectorAll(".nav button")
+.forEach(btn => btn.classList.remove("active"));
+
+button.classList.add("active");
+
+document.querySelectorAll(".game").forEach(game => {
+
+if(
+category === "all" ||
+game.dataset.category.includes(category)
+) {
+
+game.style.display = "";
+
+} else {
+
+game.style.display = "none";
+
+}
+
+});
+
+document.getElementById("search").value = "";
+
+}
+
+function randomGame() {
+
+let games =
+[...document.querySelectorAll(".game")]
+.filter(game => game.style.display !== "none");
+
+if(!games.length) return;
+
+let game =
+games[Math.floor(Math.random()*games.length)];
+
+game.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+}
+
+</script>
+
+</body>
+</html>
